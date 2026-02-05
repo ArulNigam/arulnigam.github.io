@@ -3,23 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Arul — Portfolio</title>
-  <meta name="description" content="Arul — technical, brutalist, Swiss-style portfolio." />
+  <title>arul — portfolio</title>
+  <meta name="description" content="arul — technical, brutalist, swiss-style portfolio." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --main-hue: 210;
+      --accent-hue: 240;
       --bg: hsl(var(--main-hue) 35% 96%);
       --bg-2: hsl(var(--main-hue) 40% 92%);
-      --ink: hsl(var(--main-hue) 22% 10%);
-      --ink-2: hsl(var(--main-hue) 14% 28%);
-      --accent: hsl(var(--main-hue) 88% 45%);
-      --accent-2: hsl(var(--main-hue) 80% 60%);
+      --ink: hsl(220 15% 10%);
+      --ink-2: hsl(220 10% 30%);
+      --accent: hsl(var(--accent-hue) 85% 45%);
+      --accent-2: hsl(var(--accent-hue) 75% 58%);
       --border: hsl(var(--main-hue) 28% 75%);
-      --glow: hsl(var(--main-hue) 90% 60% / 0.25);
+      --glow: hsl(var(--accent-hue) 80% 60% / 0.25);
+      --surface: white;
+      --surface-2: rgba(255, 255, 255, 0.6);
+      --surface-3: rgba(255, 255, 255, 0.3);
       --radius: 999px;
+    }
+
+    [data-theme="dark"] {
+      --bg: hsl(var(--main-hue) 30% 12%);
+      --bg-2: hsl(var(--main-hue) 32% 18%);
+      --ink: hsl(0 0% 96%);
+      --ink-2: hsl(0 0% 75%);
+      --accent: hsl(var(--accent-hue) 90% 65%);
+      --accent-2: hsl(var(--accent-hue) 85% 72%);
+      --border: hsl(var(--main-hue) 25% 32%);
+      --glow: hsl(var(--accent-hue) 85% 60% / 0.22);
+      --surface: hsl(var(--main-hue) 26% 16%);
+      --surface-2: hsl(var(--main-hue) 26% 18% / 0.7);
+      --surface-3: hsl(var(--main-hue) 22% 12% / 0.5);
     }
 
     * { box-sizing: border-box; }
@@ -36,6 +54,13 @@
         linear-gradient(120deg, hsl(var(--main-hue) 30% 97%), hsl(var(--main-hue) 35% 95%));
     }
 
+    [data-theme="dark"] body {
+      background:
+        radial-gradient(1200px 800px at 15% 10%, hsl(var(--main-hue) 28% 18%), transparent 60%),
+        radial-gradient(900px 700px at 85% 20%, hsl(var(--main-hue) 26% 20%), transparent 60%),
+        linear-gradient(120deg, hsl(var(--main-hue) 22% 10%), hsl(var(--main-hue) 26% 12%));
+    }
+
     .nebula {
       position: fixed;
       inset: -20%;
@@ -45,6 +70,12 @@
       animation: drift 22s linear infinite;
       z-index: 0;
       pointer-events: none;
+    }
+
+    [data-theme="dark"] .nebula {
+      background:
+        radial-gradient(500px 380px at 20% 30%, hsl(var(--main-hue) 50% 30% / 0.35), transparent 60%),
+        radial-gradient(520px 420px at 80% 70%, hsl(var(--main-hue) 55% 28% / 0.35), transparent 60%);
     }
 
     @keyframes drift {
@@ -94,7 +125,6 @@
       font-weight: 700;
       letter-spacing: -0.03em;
       margin: 0 0 10px 0;
-      text-transform: lowercase;
     }
 
     .subhead {
@@ -104,39 +134,18 @@
       line-height: 1.5;
     }
 
-    .tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 12px;
-      color: var(--ink-2);
-      background: white;
-      box-shadow: 0 12px 24px var(--glow);
-      white-space: nowrap;
-    }
-
     a {
-      color: inherit;
-      text-decoration: none;
-      position: relative;
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+      transition: color 150ms ease, background 150ms ease;
     }
 
-    a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -2px;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 180ms ease;
+    a:hover {
+      color: var(--accent-2);
+      background: linear-gradient(transparent 65%, hsl(var(--accent-hue) 90% 75% / 0.35));
     }
-
-    a:hover::after { transform: scaleX(1); }
 
     .orbital {
       position: relative;
@@ -144,7 +153,7 @@
       min-height: 260px;
       border-radius: 32px;
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+      background: linear-gradient(180deg, var(--surface-2), var(--surface-3));
       box-shadow: 0 30px 60px var(--glow);
       overflow: hidden;
     }
@@ -181,14 +190,19 @@
       color: var(--ink);
       font-family: "Space Grotesk", system-ui, sans-serif;
       font-size: 0.9rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0.08em;
       transition: box-shadow 200ms ease, border-color 200ms ease;
       cursor: pointer;
       background-blend-mode: multiply;
       z-index: 2;
       will-change: transform;
       transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(var(--s, 1));
+    }
+
+    [data-theme="dark"] .blob {
+      background:
+        radial-gradient(circle at 30% 30%, hsl(var(--main-hue) 25% 26%), hsl(var(--main-hue) 28% 18%) 55%),
+        radial-gradient(circle at 70% 70%, hsl(var(--main-hue) 20% 20%), transparent 60%);
     }
 
     .blob span { pointer-events: none; }
@@ -199,16 +213,16 @@
     }
 
     .blob.active {
-      --s: 1.18;
+      --s: 1.12;
       box-shadow: 0 28px 60px var(--glow);
       border-color: var(--accent);
-      z-index: 5;
+      z-index: 2;
     }
 
     .panel {
       border: 1px solid var(--border);
       border-radius: 18px;
-      background: white;
+      background: var(--surface);
       padding: 18px 20px;
       box-shadow: 0 20px 40px var(--glow);
       display: none;
@@ -216,7 +230,7 @@
       inset: 8% 8%;
       max-height: 84%;
       overflow: auto;
-      z-index: 4;
+      z-index: 6;
     }
 
     .panel.active { display: block; }
@@ -232,8 +246,7 @@
     .panel-title {
       font-family: "Space Grotesk", system-ui, sans-serif;
       font-size: 1.05rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       margin: 0;
     }
 
@@ -243,28 +256,25 @@
       color: var(--ink-2);
       font-family: inherit;
       font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      letter-spacing: 0.12em;
       padding: 6px 12px;
       border-radius: 999px;
       cursor: pointer;
     }
 
-    .panel ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .stack {
       display: grid;
-      gap: 8px;
+      gap: 10px;
       color: var(--ink-2);
       line-height: 1.5;
       font-size: 0.88rem;
     }
 
-    .panel li::before {
-      content: "•";
-      color: var(--accent);
-      margin-right: 10px;
+    .stack p { margin: 0; }
+
+    .stack p + p {
+      border-top: 1px dashed var(--border);
+      padding-top: 10px;
     }
 
     footer {
@@ -273,18 +283,18 @@
       letter-spacing: 0.02em;
     }
 
-    .hud {
+    .mode-toggle {
       position: fixed;
       inset: auto 20px 20px auto;
       font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
+      letter-spacing: 0.18em;
       color: var(--ink-2);
-      background: white;
+      background: var(--surface);
       border: 1px solid var(--border);
       padding: 8px 10px;
       border-radius: 12px;
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: pointer;
       z-index: 3;
     }
 
@@ -327,7 +337,6 @@
         font-size: 0.78rem;
       }
       .panel { inset: 5% 5%; }
-      .tag { justify-self: start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -343,17 +352,16 @@
   <div class="wrap">
     <header>
       <div>
-        <h1>hey, i'm arul</h1>
-        <p class="subhead">I'm building crash-test dummies for AI at <a href="https://www.circuitbreakerlabs.ai/" target="_blank" rel="noreferrer">Circuit Breaker Labs</a>.</p>
+        <h1>hey, i'm arul.</h1>
+        <p class="subhead">i'm building crash-test dummies for ai at <a href="https://www.circuitbreakerlabs.ai/" target="_blank" rel="noreferrer">circuit breaker labs</a>.</p>
       </div>
-      <div class="tag">Portfolio // 2026</div>
     </header>
 
     <section class="orbital" id="orbital">
       <button class="blob" data-panel="work" type="button"><span>work</span></button>
       <button class="blob" data-panel="research" type="button"><span>research</span></button>
-      <button class="blob" data-panel="scollege" type="button"><span>scollege</span></button>
-      <button class="blob" data-panel="high" type="button"><span>high school</span></button>
+      <button class="blob" data-panel="college" type="button"><span>georgetown</span></button>
+      <button class="blob" data-panel="high" type="button"><span>tjhsst</span></button>
 
       <section class="panel" id="panel" aria-live="polite">
         <div class="panel-head">
@@ -365,49 +373,78 @@
     </section>
 
     <footer>
-      i love coffee, tea, gardening.
+      i'm on a quest to find the best coffee in the world. current top contender: sisu coffee studio in panama. suggestions? email <a href="mailto:arul@nigam.com">arul@nigam.com</a>
     </footer>
   </div>
 
-  <div class="hud">physics // active</div>
+  <button class="mode-toggle" type="button" id="modeToggle">mode // light</button>
 
   <template id="work-template">
-    <ul>
-      <li>Developed AI-based graph analytics tools for defense and intel applications at a <a href="https://globalinfotek.com/" target="_blank" rel="noreferrer">boutique prime</a></li>
-      <li>Invested in semiconductors at a <a href="https://point72.com/" target="_blank" rel="noreferrer">hedge fund</a></li>
-      <li>Worked on strategy at a <a href="https://hyperios.com/" target="_blank" rel="noreferrer">space domain awareness startup</a></li>
-      <li>Deal Partner at <a href="https://www.boardy.ai/" target="_blank" rel="noreferrer">Boardy</a></li>
-    </ul>
+    <div class="stack">
+      <p>developed ai-based graph analytics tools for defense and intel applications at a <a href="https://globalinfotek.com/" target="_blank" rel="noreferrer">boutique prime</a></p>
+      <p>invested in semiconductors at a <a href="https://point72.com/" target="_blank" rel="noreferrer">hedge fund</a></p>
+      <p>worked on strategy at a <a href="https://hyperios.com/" target="_blank" rel="noreferrer">space domain awareness startup</a></p>
+      <p>i'm also a deal partner at <a href="https://www.boardy.ai/" target="_blank" rel="noreferrer">boardy</a>, the world's first ai-led venture fund. if you're building something cool, reach out!</p>
+    </div>
   </template>
 
   <template id="research-template">
-    <ul>
-      <li>Replace this list with the exact research titles from arulnigam.com/research.</li>
-    </ul>
+    <div class="stack">
+      <p><a href="https://repository.digital.georgetown.edu/handle/10822/1062641" target="_blank" rel="noreferrer">from bootstrapped to boots on the ground: evaluating the impact of funding sources on early-stage defense technology startups</a> (advised by matthew kroenig)</p>
+      <p><a href="https://drive.google.com/file/d/1vMY5FNL2zDaC8TpfnoIAnQf8GzG8dP0E/view" target="_blank" rel="noreferrer">defining fairness: a framework for developing fairness policy for ethical algorithms</a> (advised by reena aggarwal)</p>
+      <p><a href="https://drive.google.com/file/d/1JmZCwOXdQp8RT3-Myk6k0q9wcwBt6qj0/view" target="_blank" rel="noreferrer">denied and prejudiced: an analysis of algorithmic bias in lending</a> (advised by robin dillon-merrill)</p>
+      <p><a href="https://drive.google.com/file/d/1XrG8jDNp7Rksb2Dg7yV4l7a4Q7C6_BmX/view" target="_blank" rel="noreferrer">coded bias: an investigation of bias in lending algorithms</a> (advised by john zacharias)</p>
+      <p><a href="https://www.teknos.org/index.php/teknos/article/view/317" target="_blank" rel="noreferrer">electoral fraud - blocked &amp; chained: design of a novel, secure cryptographic &amp; blockchain-based voting architecture</a> (advised by malhaz jibladze)</p>
+    </div>
   </template>
 
-  <template id="scollege-template">
-    <ul>
-      <li>Studied Operations &amp; Analytics + Global Business at <a href="https://www.georgetown.edu/" target="_blank" rel="noreferrer">Georgetown</a></li>
-      <li>Led a <a href="https://georgetownstudentcapital.com/" target="_blank" rel="noreferrer">100+ person organization</a> (raised $250k+, due diligence for firms with $12b+ AUM)</li>
-      <li>Chaired supervisory committee of the <a href="https://www.guasfcu.com/" target="_blank" rel="noreferrer">largest student-run financial institution</a> ($20m+ assets)</li>
-    </ul>
+  <template id="college-template">
+    <div class="stack">
+      <p>i studied operations &amp; analytics + global business at <a href="https://www.georgetown.edu/" target="_blank" rel="noreferrer">georgetown</a>.</p>
+      <p>in college, i led a <a href="https://georgetownstudentcapital.com/" target="_blank" rel="noreferrer">100+ person organization</a> that raised $250k+ for startups and conducted due diligence for pe/vc firms ($12b+ collective aum).</p>
+      <p>i chaired the supervisory committee of the <a href="https://www.guasfcu.com/" target="_blank" rel="noreferrer">largest student-run financial institution</a> ($20m+ in assets).</p>
+    </div>
   </template>
 
   <template id="high-template">
-    <ul>
-      <li>Computer Systems Lab at <a href="https://en.wikipedia.org/wiki/Thomas_Jefferson_High_School_for_Science_and_Technology" target="_blank" rel="noreferrer">TJHSST</a></li>
-      <li>Fed 2,500+ frontline workers (56 hospitals, 21 states) via <a href="https://www.heroesofcovidinitiative.com/" target="_blank" rel="noreferrer">Heroes of COVID</a> (Interviewed on <a href="https://youtu.be/0am_DAaUhcQ?si=ysFXc-ScW3taWoBr" target="_blank" rel="noreferrer">Kelly and Ryan</a>)</li>
-      <li>Helped pass the bipartisan <a href="https://thehill.com/blogs/congress-blog/politics/546602-passage-of-faster-act-is-critical-for-food-allergy-community/" target="_blank" rel="noreferrer">FASTER Act</a> &amp; created the <a href="https://www.foodallergy.org/media-room/fare-applauds-creation-congressional-food-allergy-research-caucus" target="_blank" rel="noreferrer">Cong. Food Allergy Research Caucus</a></li>
-      <li>Authored a <a href="https://www.amazon.com/gp/product/B08LVGGWZP" target="_blank" rel="noreferrer">book on contrarian thinking</a> (Amazon top 10 political short reads)</li>
-    </ul>
+    <div class="stack">
+      <p>i was in the computer systems lab at <a href="https://en.wikipedia.org/wiki/Thomas_Jefferson_High_School_for_Science_and_Technology" target="_blank" rel="noreferrer">thomas jefferson high school for science and technology</a>.</p>
+      <p>in high school, i fed 2,500+ frontline workers at 56 hospitals across 21 states through the <a href="https://www.heroesofcovidinitiative.com/" target="_blank" rel="noreferrer">heroes of covid initiative</a>. i was even interviewed on <a href="https://youtu.be/0am_DAaUhcQ?si=ysFXc-ScW3taWoBr" target="_blank" rel="noreferrer">live with kelly and ryan</a>!</p>
+      <p>i helped pass the bipartisan <a href="https://thehill.com/blogs/congress-blog/politics/546602-passage-of-faster-act-is-critical-for-food-allergy-community/" target="_blank" rel="noreferrer">faster act</a> and create the <a href="https://www.foodallergy.org/media-room/fare-applauds-creation-congressional-food-allergy-research-caucus" target="_blank" rel="noreferrer">congressional food allergy research caucus</a>.</p>
+      <p>i authored a <a href="https://www.amazon.com/gp/product/B08LVGGWZP" target="_blank" rel="noreferrer">book on contrarian thinking</a> that made amazons top ten political short reads.</p>
+    </div>
   </template>
 
   <script>
     (function () {
       const root = document.documentElement;
-      const hue = Math.floor(Math.random() * 361);
+      const hue = Math.floor(Math.random() * 360);
+      const accent = (hue + 30 + Math.floor(Math.random() * 40)) % 360;
       root.style.setProperty("--main-hue", hue.toString());
+      root.style.setProperty("--accent-hue", accent.toString());
+    })();
+
+    (function () {
+      const toggle = document.getElementById("modeToggle");
+      if (!toggle) return;
+
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const stored = localStorage.getItem("theme");
+      const initial = stored || (prefersDark ? "dark" : "light");
+
+      const applyTheme = (theme) => {
+        document.documentElement.setAttribute("data-theme", theme);
+        toggle.textContent = `mode // ${theme}`;
+        toggle.setAttribute("aria-pressed", theme === "dark");
+      };
+
+      applyTheme(initial);
+
+      toggle.addEventListener("click", () => {
+        const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        localStorage.setItem("theme", next);
+        applyTheme(next);
+      });
     })();
 
     (function () {
@@ -449,21 +486,21 @@
       const templates = {
         work: document.getElementById("work-template"),
         research: document.getElementById("research-template"),
-        scollege: document.getElementById("scollege-template"),
+        college: document.getElementById("college-template"),
         high: document.getElementById("high-template")
       };
 
       const titles = {
         work: "work",
         research: "research",
-        scollege: "scollege // georgetown",
-        high: "high school"
+        college: "georgetown",
+        high: "tjhsst"
       };
 
       const basePositions = {
         work: [0.14, 0.2],
         research: [0.68, 0.2],
-        scollege: [0.22, 0.68],
+        college: [0.22, 0.68],
         high: [0.66, 0.68]
       };
 
@@ -519,6 +556,47 @@
         });
       };
 
+      const handleCollisions = () => {
+        for (let i = 0; i < blobs.length; i += 1) {
+          const a = state.get(blobs[i]);
+          if (!a) continue;
+          const ax = a.x + a.w / 2;
+          const ay = a.y + a.h / 2;
+          const ar = Math.min(a.w, a.h) / 2;
+          for (let j = i + 1; j < blobs.length; j += 1) {
+            const b = state.get(blobs[j]);
+            if (!b) continue;
+            const bx = b.x + b.w / 2;
+            const by = b.y + b.h / 2;
+            const br = Math.min(b.w, b.h) / 2;
+            const dx = bx - ax;
+            const dy = by - ay;
+            const dist = Math.hypot(dx, dy);
+            const minDist = ar + br;
+            if (dist === 0 || dist >= minDist) continue;
+
+            const nx = dx / dist;
+            const ny = dy / dist;
+            const overlap = minDist - dist;
+
+            a.x -= nx * overlap * 0.5;
+            a.y -= ny * overlap * 0.5;
+            b.x += nx * overlap * 0.5;
+            b.y += ny * overlap * 0.5;
+
+            const dvx = a.vx - b.vx;
+            const dvy = a.vy - b.vy;
+            const vn = dvx * nx + dvy * ny;
+            if (vn > 0) continue;
+
+            a.vx -= vn * nx;
+            a.vy -= vn * ny;
+            b.vx += vn * nx;
+            b.vy += vn * ny;
+          }
+        }
+      };
+
       const updatePhysics = (dt) => {
         const rect = orbital.getBoundingClientRect();
         blobs.forEach((blob) => {
@@ -545,7 +623,13 @@
             item.y = maxY;
             item.vy = -Math.abs(item.vy);
           }
+        });
 
+        handleCollisions();
+
+        blobs.forEach((blob) => {
+          const item = state.get(blob);
+          if (!item) return;
           blob.style.setProperty("--tx", `${item.x}px`);
           blob.style.setProperty("--ty", `${item.y}px`);
         });
