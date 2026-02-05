@@ -7,7 +7,7 @@
   <meta name="description" content="arul — technical, brutalist, swiss-style portfolio." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --main-hue: 210;
@@ -45,7 +45,7 @@
     body {
       margin: 0;
       color: var(--ink);
-      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       background:
@@ -59,6 +59,18 @@
         radial-gradient(1200px 800px at 15% 10%, hsl(var(--main-hue) 28% 18%), transparent 60%),
         radial-gradient(900px 700px at 85% 20%, hsl(var(--main-hue) 26% 20%), transparent 60%),
         linear-gradient(120deg, hsl(var(--main-hue) 22% 10%), hsl(var(--main-hue) 26% 12%));
+    }
+
+    .film-grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image:
+        linear-gradient(0deg, transparent 0%, rgba(0,0,0,0.04) 50%, transparent 100%),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 50%, rgba(255,255,255,0.03) 100%);
+      mix-blend-mode: soft-light;
+      z-index: 1;
     }
 
     .nebula {
@@ -95,7 +107,7 @@
         rgba(0, 0, 0, 0.03) 11px
       );
       mix-blend-mode: multiply;
-      opacity: 0.25;
+      opacity: 0.2;
       z-index: 1;
     }
 
@@ -120,7 +132,7 @@
     }
 
     h1 {
-      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-family: "Sora", system-ui, sans-serif;
       font-size: clamp(2.2rem, 4.6vw, 3.6rem);
       font-weight: 700;
       letter-spacing: -0.03em;
@@ -181,7 +193,9 @@
       min-height: 260px;
       border-radius: 32px;
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, var(--surface-2), var(--surface-3));
+      background:
+        conic-gradient(from 120deg at 50% 50%, hsl(var(--accent-hue) 80% 70% / 0.06), transparent 35%, hsl(var(--accent-hue) 80% 70% / 0.08) 65%, transparent),
+        linear-gradient(180deg, var(--surface-2), var(--surface-3));
       box-shadow: 0 30px 60px var(--glow);
       overflow: hidden;
     }
@@ -216,7 +230,7 @@
       display: grid;
       place-items: center;
       color: var(--ink);
-      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-family: "Sora", system-ui, sans-serif;
       font-size: clamp(1rem, 2.4vw, 1.35rem);
       font-weight: 600;
       letter-spacing: 0.04em;
@@ -273,7 +287,7 @@
     }
 
     .panel-title {
-      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-family: "Sora", system-ui, sans-serif;
       font-size: 1.05rem;
       letter-spacing: 0.08em;
       margin: 0;
@@ -344,11 +358,11 @@
 
     .focus-light {
       position: fixed;
-      width: 420px;
-      height: 420px;
+      width: 360px;
+      height: 360px;
       border-radius: 50%;
       pointer-events: none;
-      background: radial-gradient(circle, hsl(var(--accent-hue) 80% 70% / 0.22), transparent 60%);
+      background: radial-gradient(circle, hsl(var(--accent-hue) 80% 70% / 0.24), transparent 60%);
       mix-blend-mode: screen;
       transform: translate(-50%, -50%);
       z-index: 2;
@@ -365,8 +379,6 @@
       border: 1px solid var(--accent);
       border-radius: 50%;
       position: fixed;
-      left: 0;
-      top: 0;
       pointer-events: none;
       transform: translate(-50%, -50%);
       background: radial-gradient(circle, hsl(var(--accent-hue) 90% 80% / 0.6), transparent 60%);
@@ -413,13 +425,14 @@
 <body>
   <div class="nebula" aria-hidden="true"></div>
   <div class="scanlines" aria-hidden="true"></div>
+  <div class="film-grain" aria-hidden="true"></div>
   <div class="focus-light" aria-hidden="true"></div>
   <div class="cursor" aria-hidden="true"></div>
   <div class="wrap">
     <header>
       <div>
         <h1>hey, i'm arul.</h1>
-        <p class="subhead">i'm building crash-test dummies for ai at <a href="https://www.circuitbreakerlabs.ai/" target="_blank" rel="noreferrer">circuit breaker labs</a>.</p>
+        <p class="subhead">i'm building crash-test dummies for ai at <a href="https://www.circuitbreakerlabs.ai/" target="_blank" rel="noreferrer">Circuit Breaker Labs</a>.</p>
       </div>
       <div class="socials" aria-label="social links">
         <a href="https://github.com/ArulNigam" target="_blank" rel="noreferrer" aria-label="github">
@@ -456,7 +469,7 @@
     </section>
 
     <footer>
-      i'm on a quest to find the best coffee in the world. current top contender: sisu coffee studio in panama.<br>suggestions? email arul [at] nigam [dot] com
+      i'm on a quest to find the best coffee in the world. current leader: sisu coffee studio in panama.<br>nominations? email arul [at] nigam [dot] com
     </footer>
   </div>
 
@@ -474,23 +487,23 @@
       <p>developed ai-based graph analytics tools for defense and intel applications at a <a href="https://globalinfotek.com/" target="_blank" rel="noreferrer">boutique prime</a></p>
       <p>invested in semiconductors at a <a href="https://point72.com/" target="_blank" rel="noreferrer">hedge fund</a></p>
       <p>worked on strategy at a <a href="https://hyperios.com/" target="_blank" rel="noreferrer">space domain awareness startup</a></p>
-      <p>i'm also a deal partner at <a href="https://www.boardy.ai/" target="_blank" rel="noreferrer">boardy</a>, the world's first ai-led venture fund. if you're building something cool, reach out!</p>
+      <p>i'm also a deal partner at <a href="https://www.Boardy.ai/" target="_blank" rel="noreferrer">Boardy</a>, the world's first ai-led venture fund. if you're building something cool, reach out!</p>
     </div>
   </template>
 
   <template id="research-template">
     <div class="stack">
-      <p><a href="https://repository.digital.georgetown.edu/handle/10822/1062641" target="_blank" rel="noreferrer">from bootstrapped to boots on the ground: evaluating the impact of funding sources on early-stage defense technology startups</a> (advised by matthew kroenig)</p>
-      <p><a href="https://drive.google.com/file/d/1vMY5FNL2zDaC8TpfnoIAnQf8GzG8dP0E/view" target="_blank" rel="noreferrer">defining fairness: a framework for developing fairness policy for ethical algorithms</a> (advised by reena aggarwal)</p>
-      <p><a href="https://drive.google.com/file/d/1JmZCwOXdQp8RT3-Myk6k0q9wcwBt6qj0/view" target="_blank" rel="noreferrer">denied and prejudiced: an analysis of algorithmic bias in lending</a> (advised by robin dillon-merrill)</p>
-      <p><a href="https://drive.google.com/file/d/1XrG8jDNp7Rksb2Dg7yV4l7a4Q7C6_BmX/view" target="_blank" rel="noreferrer">coded bias: an investigation of bias in lending algorithms</a> (advised by john zacharias)</p>
-      <p><a href="https://www.teknos.org/index.php/teknos/article/view/317" target="_blank" rel="noreferrer">electoral fraud - blocked &amp; chained: design of a novel, secure cryptographic &amp; blockchain-based voting architecture</a> (advised by malhaz jibladze)</p>
+      <p><a href="https://repository.digital.georgetown.edu/handle/10822/1062641" target="_blank" rel="noreferrer">From Bootstrapped to Boots on the Ground: Evaluating the Impact of Funding Sources on Early-Stage Defense Technology Startups</a> (advised by Matthew Kroenig)</p>
+      <p><a href="https://drive.google.com/file/d/1vMY5FNL2zDaC8TpfnoIAnQf8GzG8dP0E/view" target="_blank" rel="noreferrer">Defining Fairness: A Framework for Developing Fairness Policy for Ethical Algorithms</a> (advised by Reena Aggarwal)</p>
+      <p><a href="https://drive.google.com/file/d/1JmZCwOXdQp8RT3-Myk6k0q9wcwBt6qj0/view" target="_blank" rel="noreferrer">Denied and Prejudiced: An Analysis of Algorithmic Bias in Lending</a> (advised by Robin Dillon-Merrill)</p>
+      <p><a href="https://drive.google.com/file/d/1XrG8jDNp7Rksb2Dg7yV4l7a4Q7C6_BmX/view" target="_blank" rel="noreferrer">Coded Bias: An Investigation of Bias in Lending Algorithms</a> (advised by John Zacharias)</p>
+      <p><a href="https://www.teknos.org/index.php/teknos/article/view/317" target="_blank" rel="noreferrer">Electoral Fraud - Blocked &amp; Chained: Design of a Novel, Secure Cryptographic &amp; Blockchain-based Voting Architecture</a> (advised by Malhaz Jibladze)</p>
     </div>
   </template>
 
   <template id="college-template">
     <div class="stack">
-      <p>i studied operations &amp; analytics + global business at <a href="https://www.georgetown.edu/" target="_blank" rel="noreferrer">georgetown</a>.</p>
+      <p>i studied operations &amp; analytics + global business at <a href="https://www.georgetown.edu/" target="_blank" rel="noreferrer">Georgetown</a>.</p>
       <p>in college, i led a <a href="https://georgetownstudentcapital.com/" target="_blank" rel="noreferrer">100+ person organization</a> that raised $250k+ for startups and conducted due diligence for pe/vc firms ($12b+ collective aum).</p>
       <p>i chaired the supervisory committee of the <a href="https://www.guasfcu.com/" target="_blank" rel="noreferrer">largest student-run financial institution</a> ($20m+ in assets).</p>
     </div>
@@ -498,9 +511,9 @@
 
   <template id="high-template">
     <div class="stack">
-      <p>i was in the computer systems lab at <a href="https://en.wikipedia.org/wiki/Thomas_Jefferson_High_School_for_Science_and_Technology" target="_blank" rel="noreferrer">thomas jefferson high school for science and technology</a>.</p>
-      <p>in high school, i fed 2,500+ frontline workers at 56 hospitals across 21 states through the <a href="https://www.heroesofcovidinitiative.com/" target="_blank" rel="noreferrer">heroes of covid initiative</a>. i was even interviewed on <a href="https://youtu.be/0am_DAaUhcQ?si=ysFXc-ScW3taWoBr" target="_blank" rel="noreferrer">live with kelly and ryan</a>!</p>
-      <p>i helped pass the bipartisan <a href="https://thehill.com/blogs/congress-blog/politics/546602-passage-of-faster-act-is-critical-for-food-allergy-community/" target="_blank" rel="noreferrer">faster act</a> and create the <a href="https://www.foodallergy.org/media-room/fare-applauds-creation-congressional-food-allergy-research-caucus" target="_blank" rel="noreferrer">congressional food allergy research caucus</a>.</p>
+      <p>i was in the computer systems lab at <a href="https://en.wikipedia.org/wiki/Thomas_Jefferson_High_School_for_Science_and_Technology" target="_blank" rel="noreferrer">Thomas Jefferson High School for Science and Technology</a>.</p>
+      <p>in high school, i fed 2,500+ frontline workers at 56 hospitals across 21 states through the Heroes of COVID. i was even interviewed on <a href="https://youtu.be/0am_DAaUhcQ?si=ysFXc-ScW3taWoBr" target="_blank" rel="noreferrer">live with kelly and ryan</a>!</p>
+      <p>i helped pass the bipartisan <a href="https://thehill.com/blogs/congress-blog/politics/546602-passage-of-faster-act-is-critical-for-food-allergy-community/" target="_blank" rel="noreferrer">FASTER Act</a> and create the <a href="https://www.foodallergy.org/media-room/fare-applauds-creation-congressional-food-allergy-research-caucus" target="_blank" rel="noreferrer">Congressional Food Allergy Research Caucus</a>.</p>
       <p>i authored a <a href="https://www.amazon.com/gp/product/B08LVGGWZP" target="_blank" rel="noreferrer">book on contrarian thinking</a> that made amazons top ten political short reads.</p>
     </div>
   </template>
@@ -562,8 +575,10 @@
       const animate = () => {
         currentX += (mouseX - currentX) * ease;
         currentY += (mouseY - currentY) * ease;
-        cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
-        focus.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        cursor.style.left = `${currentX}px`;
+        cursor.style.top = `${currentY}px`;
+        focus.style.left = `${currentX}px`;
+        focus.style.top = `${currentY}px`;
         requestAnimationFrame(animate);
       };
 
@@ -756,3 +771,7 @@
   </script>
 </body>
 </html>
+
+
+
+
