@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>arul — portfolio</title>
+  <title>arul nigam</title>
   <meta name="description" content="arul — technical, brutalist, swiss-style portfolio." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -217,8 +217,9 @@
       place-items: center;
       color: var(--ink);
       font-family: "IBM Plex Sans", system-ui, sans-serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
+      font-size: clamp(1rem, 2.4vw, 1.35rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
       transition: box-shadow 200ms ease, border-color 200ms ease;
       cursor: pointer;
       background-blend-mode: multiply;
@@ -314,16 +315,48 @@
     .mode-toggle {
       position: fixed;
       inset: auto 20px 20px auto;
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
       color: var(--ink-2);
       background: var(--surface);
       border: 1px solid var(--border);
-      padding: 8px 10px;
       border-radius: 12px;
       pointer-events: auto;
       cursor: pointer;
       z-index: 3;
+      transition: transform 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .mode-toggle:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 12px 24px var(--glow);
+      transform: translateY(-1px);
+    }
+
+    .mode-toggle svg { width: 18px; height: 18px; }
+
+    .mode-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .mode-toggle .icon-sun { display: none; }
+    [data-theme="dark"] .mode-toggle .icon-moon { display: block; }
+
+    .focus-light {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, hsl(var(--accent-hue) 80% 70% / 0.22), transparent 60%);
+      mix-blend-mode: screen;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    [data-theme="dark"] .focus-light {
+      background: radial-gradient(circle, hsl(var(--accent-hue) 80% 70% / 0.32), transparent 60%);
+      mix-blend-mode: lighten;
     }
 
     .cursor {
@@ -336,7 +369,9 @@
       top: 0;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      mix-blend-mode: multiply;
+      background: radial-gradient(circle, hsl(var(--accent-hue) 90% 80% / 0.6), transparent 60%);
+      box-shadow: 0 0 18px hsl(var(--accent-hue) 90% 70% / 0.35);
+      mix-blend-mode: screen;
       z-index: 999;
     }
 
@@ -354,7 +389,7 @@
     @media (max-width: 900px) {
       header { grid-template-columns: 1fr; }
       .socials { justify-content: flex-start; }
-      .blob { width: 150px; height: 150px; font-size: 0.82rem; }
+      .blob { width: 150px; height: 150px; font-size: 1.05rem; }
       .panel { inset: 6% 6%; }
     }
 
@@ -363,12 +398,13 @@
       .blob {
         width: 132px;
         height: 132px;
-        font-size: 0.78rem;
+        font-size: 0.98rem;
       }
       .panel { inset: 5% 5%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      .focus-light,
       .cursor { display: none; }
       .nebula { animation: none; }
     }
@@ -377,6 +413,7 @@
 <body>
   <div class="nebula" aria-hidden="true"></div>
   <div class="scanlines" aria-hidden="true"></div>
+  <div class="focus-light" aria-hidden="true"></div>
   <div class="cursor" aria-hidden="true"></div>
   <div class="wrap">
     <header>
@@ -419,11 +456,18 @@
     </section>
 
     <footer>
-      i'm on a quest to find the best coffee in the world. current top contender: sisu coffee studio in panama.<br>suggestions? email <a href="mailto:arul@nigam.com">arul@nigam.com</a>
+      i'm on a quest to find the best coffee in the world. current top contender: sisu coffee studio in panama.<br>suggestions? email arul [at] nigam [dot] com
     </footer>
   </div>
 
-  <button class="mode-toggle" type="button" id="modeToggle">light</button>
+  <button class="mode-toggle" type="button" id="modeToggle" aria-label="toggle theme">
+    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 1 1-2 0V5.5a1 1 0 0 1 1-1zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM5.5 11a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2h1.5zm14.5 0a1 1 0 1 1 0 2H18.5a1 1 0 1 1 0-2H20zM7.05 6.05a1 1 0 0 1 1.41 0l1.06 1.06a1 1 0 1 1-1.41 1.41L7.05 7.46a1 1 0 0 1 0-1.41zm9.84 9.84a1 1 0 0 1 1.41 0l1.06 1.06a1 1 0 1 1-1.41 1.41l-1.06-1.06a1 1 0 0 1 0-1.41zM16.89 6.05a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM8.52 16.89a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0z" />
+    </svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.6 8.6 0 1 0 11 11z" />
+    </svg>
+  </button>
 
   <template id="work-template">
     <div class="stack">
@@ -464,10 +508,15 @@
   <script>
     (function () {
       const root = document.documentElement;
-      const hue = Math.floor(Math.random() * 360);
-      const accent = (hue + 30 + Math.floor(Math.random() * 40)) % 360;
-      root.style.setProperty("--main-hue", hue.toString());
-      root.style.setProperty("--accent-hue", accent.toString());
+      const randomizePalette = () => {
+        const hue = Math.floor(Math.random() * 360);
+        const accent = (hue + 30 + Math.floor(Math.random() * 40)) % 360;
+        root.style.setProperty("--main-hue", hue.toString());
+        root.style.setProperty("--accent-hue", accent.toString());
+      };
+      randomizePalette();
+      root.dataset.paletteRandom = "true";
+      window.__randomizePalette = randomizePalette;
     })();
 
     (function () {
@@ -480,7 +529,6 @@
 
       const applyTheme = (theme) => {
         document.documentElement.setAttribute("data-theme", theme);
-        toggle.textContent = `${theme}`;
         toggle.setAttribute("aria-pressed", theme === "dark");
       };
 
@@ -495,7 +543,8 @@
 
     (function () {
       const cursor = document.querySelector(".cursor");
-      if (!cursor) return;
+      const focus = document.querySelector(".focus-light");
+      if (!cursor || !focus) return;
 
       let mouseX = window.innerWidth / 2;
       let mouseY = window.innerHeight / 2;
@@ -514,6 +563,7 @@
         currentX += (mouseX - currentX) * ease;
         currentY += (mouseY - currentY) * ease;
         cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        focus.style.transform = `translate(${currentX}px, ${currentY}px)`;
         requestAnimationFrame(animate);
       };
 
@@ -645,6 +695,8 @@
 
       const updatePhysics = (dt) => {
         const rect = orbital.getBoundingClientRect();
+        let wallHit = false;
+
         blobs.forEach((blob) => {
           const item = state.get(blob);
           if (!item) return;
@@ -657,19 +709,27 @@
           if (item.x <= 0) {
             item.x = 0;
             item.vx = Math.abs(item.vx);
+            wallHit = true;
           } else if (item.x >= maxX) {
             item.x = maxX;
             item.vx = -Math.abs(item.vx);
+            wallHit = true;
           }
 
           if (item.y <= 0) {
             item.y = 0;
             item.vy = Math.abs(item.vy);
+            wallHit = true;
           } else if (item.y >= maxY) {
             item.y = maxY;
             item.vy = -Math.abs(item.vy);
+            wallHit = true;
           }
         });
+
+        if (wallHit && window.__randomizePalette) {
+          window.__randomizePalette();
+        }
 
         handleCollisions();
 
@@ -696,5 +756,3 @@
   </script>
 </body>
 </html>
-
-
