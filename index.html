@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arul — Portfolio</title>
+  <meta name="description" content="Arul — technical, brutalist, Swiss-style portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --main-hue: 210;
+      --bg: hsl(var(--main-hue) 35% 96%);
+      --bg-2: hsl(var(--main-hue) 40% 92%);
+      --ink: hsl(var(--main-hue) 22% 10%);
+      --ink-2: hsl(var(--main-hue) 14% 28%);
+      --accent: hsl(var(--main-hue) 88% 45%);
+      --accent-2: hsl(var(--main-hue) 80% 60%);
+      --border: hsl(var(--main-hue) 28% 75%);
+      --glow: hsl(var(--main-hue) 90% 60% / 0.25);
+      --radius: 999px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      background:
+        radial-gradient(1200px 800px at 15% 10%, var(--bg-2), transparent 60%),
+        radial-gradient(900px 700px at 85% 20%, hsl(var(--main-hue) 45% 94%), transparent 60%),
+        linear-gradient(120deg, hsl(var(--main-hue) 30% 97%), hsl(var(--main-hue) 35% 95%));
+      overflow-x: hidden;
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 10px,
+        rgba(0, 0, 0, 0.03) 11px
+      );
+      mix-blend-mode: multiply;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 20px 72px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 34px;
+    }
+
+    h1 {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0 0 12px 0;
+      text-transform: lowercase;
+    }
+
+    .subhead {
+      font-size: 1rem;
+      color: var(--ink-2);
+      max-width: 680px;
+      line-height: 1.6;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 12px;
+      color: var(--ink-2);
+      background: white;
+      box-shadow: 0 12px 24px var(--glow);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      position: relative;
+    }
+
+    a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 180ms ease;
+    }
+
+    a:hover::after { transform: scaleX(1); }
+
+    .orbital {
+      position: relative;
+      height: clamp(420px, 56vh, 520px);
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+      box-shadow: 0 30px 60px var(--glow);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbital::before,
+    .orbital::after {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border: 1px dashed hsl(var(--main-hue) 35% 80%);
+      border-radius: 26px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .orbital::after {
+      inset: 60px;
+      border-style: solid;
+      opacity: 0.15;
+    }
+
+    .blob {
+      position: absolute;
+      width: clamp(120px, 18vw, 190px);
+      height: clamp(120px, 18vw, 190px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 30% 30%, hsl(var(--main-hue) 90% 95%), white 55%),
+        radial-gradient(circle at 70% 70%, hsl(var(--main-hue) 80% 88%), transparent 60%);
+      box-shadow: 0 14px 28px var(--glow);
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: transform 240ms ease, box-shadow 240ms ease;
+      cursor: pointer;
+      animation: float 6s ease-in-out infinite;
+      background-blend-mode: multiply;
+      z-index: 2;
+    }
+
+    .blob span { pointer-events: none; }
+
+    .blob:hover {
+      transform: scale(1.06);
+      box-shadow: 0 24px 40px var(--glow);
+    }
+
+    .blob.active {
+      transform: scale(1.18);
+      box-shadow: 0 28px 60px var(--glow);
+      border-color: var(--accent);
+    }
+
+    .blob-work { top: 12%; left: 12%; animation-delay: -1s; }
+    .blob-research { top: 18%; right: 12%; animation-delay: -3s; }
+    .blob-scollege { bottom: 16%; left: 16%; animation-delay: -2s; }
+    .blob-high { bottom: 10%; right: 18%; animation-delay: -4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .panel {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: white;
+      padding: 20px 22px;
+      box-shadow: 0 20px 40px var(--glow);
+      display: none;
+    }
+
+    .panel.active { display: block; }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .panel-title {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 0;
+    }
+
+    .panel-close {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--ink-2);
+      font-family: inherit;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+      color: var(--ink-2);
+      line-height: 1.6;
+      font-size: 0.92rem;
+    }
+
+    .panel li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 10px;
+    }
+
+    footer {
+      margin-top: 30px;
+      color: var(--ink-2);
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hud {
+      position: fixed;
+      inset: auto 20px 20px auto;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      background: white;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 12px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .cursor {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: multiply;
+      z-index: 999;
+    }
+
+    .cursor::before,
+    .cursor::after {
+      content: "";
+      position: absolute;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    .cursor::before { width: 10px; height: 1px; top: 50%; left: 4px; }
+    .cursor::after { width: 1px; height: 10px; left: 50%; top: 4px; }
+
+    @media (max-width: 900px) {
+      header { grid-template-columns: 1fr; }
+      .orbital { height: 460px; }
+      .blob { width: 150px; height: 150px; }
+      .blob-work { top: 10%; left: 6%; }
+      .blob-research { top: 12%; right: 6%; }
+      .blob-scollege { bottom: 12%; left: 10%; }
+      .blob-high { bottom: 8%; right: 10%; }
+    }
+
+    @media (max-width: 600px) {
+      .wrap { padding: 40px 16px 60px; }
+      .orbital { height: 520px; }
+      .blob {
+        width: 140px;
+        height: 140px;
+        font-size: 0.8rem;
+      }
+      .blob-work { top: 6%; left: 10%; }
+      .blob-research { top: 6%; right: 10%; }
+      .blob-scollege { bottom: 12%; left: 12%; }
+      .blob-high { bottom: 12%; right: 12%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .blob { animation: none; }
+      .cursor { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>hey, i'm arul</h1>
+        <p class="subhead">I'm building crash-test dummies for AI at <a href="https://www.circuitbreakerlabs.ai/" target="_blank" rel="noreferrer">Circuit Breaker Labs</a>.</p>
+      </div>
+      <div class="tag">Portfolio // 2026</div>
+    </header>
+
+    <section class="orbital" id="orbital">
+      <button class="blob blob-work" data-panel="work" type="button"><span>work</span></button>
+      <button class="blob blob-research" data-panel="research" type="button"><span>research</span></button>
+      <button class="blob blob-scollege" data-panel="scollege" type="button"><span>scollege</span></button>
+      <button class="blob blob-high" data-panel="high" type="button"><span>high school</span></button>
+    </section>
+
+    <section class="panel" id="panel" aria-live="polite">
+      <div class="panel-head">
+        <h2 class="panel-title" id="panelTitle">work</h2>
+        <button class="panel-close" type="button" id="panelClose">close</button>
+      </div>
+      <div id="panelBody"></div>
+    </section>
+
+    <footer>
+      i love coffee, tea, gardening.
+    </footer>
+  </div>
+
+  <div class="hud">HUD // ACTIVE</div>
+
+  <template id="work-template">
+    <ul>
+      <li>Developed AI-based graph analytics tools for defense and intel applications at a <a href="https://globalinfotek.com/" target="_blank" rel="noreferrer">boutique prime</a></li>
+      <li>Invested in semiconductors at a <a href="https://point72.com/" target="_blank" rel="noreferrer">hedge fund</a></li>
+      <li>Worked on strategy at a <a href="https://hyperios.com/" target="_blank" rel="noreferrer">space domain awareness startup</a></li>
+      <li>Deal Partner at <a href="https://www.boardy.ai/" target="_blank" rel="noreferrer">Boardy</a></li>
+    </ul>
+  </template>
+
+  <template id="research-template">
+    <ul>
+      <li><a href="https://repository.digital.georgetown.edu/handle/10822/1101032" target="_blank" rel="noreferrer">From Bootstrapped to Boots on the Ground: Evaluating the Impact of Funding Sources on Early-Stage Defense Technology Startups</a> (Advised by Matthew Kroenig)</li>
+      <li><a href="https://drive.google.com/file/d/1Wv-2oA8v9dSkIqMM168l6KIJ3VlqPKJk/view" target="_blank" rel="noreferrer">Defining Fairness: A Framework for Developing Fairness Policy for Ethical Algorithms</a> (Advised by Reena Aggarwal)</li>
+      <li><a href="https://drive.google.com/file/d/1Wv-2oA8v9dSkIqMM168l6KIJ3VlqPKJk/view" target="_blank" rel="noreferrer">Denied and Prejudiced: An Analysis of Algorithmic Bias in Lending</a> (Advised by Robin Dillon-Merrill)</li>
+      <li><a href="https://drive.google.com/file/d/1Wv-2oA8v9dSkIqMM168l6KIJ3VlqPKJk/view" target="_blank" rel="noreferrer">Coded Bias: An Investigation of Bias in Lending Algorithms</a> (Advised by John Zacharias)</li>
+      <li><a href="https://www.teknos.org/home/2021/3/31/electoral-fraud-blocked-amp-chained-design-of-a-novel-secure-cryptographic-amp-blockchain-based-voting-architecture?rq=nigam" target="_blank" rel="noreferrer">Electoral Fraud - Blocked &amp; Chained: Design of a Novel, Secure Cryptographic &amp; Blockchain-based Voting Architecture</a> (Advised by Malhaz Jibladze)</li>
+    </ul>
+  </template>
+
+  <template id="scollege-template">
+    <ul>
+      <li>Studied Operations &amp; Analytics + Global Business at <a href="https://www.georgetown.edu/" target="_blank" rel="noreferrer">Georgetown</a></li>
+      <li>Led a <a href="https://georgetownstudentcapital.com/" target="_blank" rel="noreferrer">100+ person organization</a> (raised $250k+, due diligence for firms with $12b+ AUM)</li>
+      <li>Chaired supervisory committee of the <a href="https://www.guasfcu.com/" target="_blank" rel="noreferrer">largest student-run financial institution</a> ($20m+ assets)</li>
+    </ul>
+  </template>
+
+  <template id="high-template">
+    <ul>
+      <li>Computer Systems Lab at <a href="https://en.wikipedia.org/wiki/Thomas_Jefferson_High_School_for_Science_and_Technology" target="_blank" rel="noreferrer">TJHSST</a></li>
+      <li>Fed 2,500+ frontline workers (56 hospitals, 21 states) via <a href="https://www.heroesofcovidinitiative.com/" target="_blank" rel="noreferrer">Heroes of COVID</a> (Interviewed on <a href="https://youtu.be/0am_DAaUhcQ?si=ysFXc-ScW3taWoBr" target="_blank" rel="noreferrer">Kelly and Ryan</a>)</li>
+      <li>Helped pass the bipartisan <a href="https://thehill.com/blogs/congress-blog/politics/546602-passage-of-faster-act-is-critical-for-food-allergy-community/" target="_blank" rel="noreferrer">FASTER Act</a> &amp; created the <a href="https://www.foodallergy.org/media-room/fare-applauds-creation-congressional-food-allergy-research-caucus" target="_blank" rel="noreferrer">Cong. Food Allergy Research Caucus</a></li>
+      <li>Authored a <a href="https://www.amazon.com/gp/product/B08LVGGWZP" target="_blank" rel="noreferrer">book on contrarian thinking</a> (Amazon top 10 political short reads)</li>
+    </ul>
+  </template>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const hue = Math.floor(Math.random() * 361);
+      root.style.setProperty("--main-hue", hue.toString());
+    })();
+
+    (function () {
+      const cursor = document.querySelector(".cursor");
+      if (!cursor) return;
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let currentX = mouseX;
+      let currentY = mouseY;
+      const ease = 0.14;
+
+      const onMove = (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+      };
+
+      window.addEventListener("mousemove", onMove, { passive: true });
+
+      const animate = () => {
+        currentX += (mouseX - currentX) * ease;
+        currentY += (mouseY - currentY) * ease;
+        cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        requestAnimationFrame(animate);
+      };
+
+      requestAnimationFrame(animate);
+    })();
+
+    (function () {
+      const blobs = document.querySelectorAll(".blob");
+      const panel = document.getElementById("panel");
+      const panelTitle = document.getElementById("panelTitle");
+      const panelBody = document.getElementById("panelBody");
+      const panelClose = document.getElementById("panelClose");
+      const orbital = document.getElementById("orbital");
+
+      const templates = {
+        work: document.getElementById("work-template"),
+        research: document.getElementById("research-template"),
+        scollege: document.getElementById("scollege-template"),
+        high: document.getElementById("high-template")
+      };
+
+      const titles = {
+        work: "work",
+        research: "research",
+        scollege: "scollege // georgetown",
+        high: "high school"
+      };
+
+      const setActive = (key) => {
+        blobs.forEach((blob) => blob.classList.toggle("active", blob.dataset.panel === key));
+        panelTitle.textContent = titles[key] || key;
+        panelBody.innerHTML = "";
+        const fragment = templates[key].content.cloneNode(true);
+        panelBody.appendChild(fragment);
+        panel.classList.add("active");
+      };
+
+      const clearActive = () => {
+        blobs.forEach((blob) => blob.classList.remove("active"));
+        panel.classList.remove("active");
+      };
+
+      blobs.forEach((blob) => {
+        blob.addEventListener("click", () => {
+          const key = blob.dataset.panel;
+          setActive(key);
+        });
+      });
+
+      panelClose.addEventListener("click", clearActive);
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") clearActive();
+      });
+
+      const tilt = (event) => {
+        const rect = orbital.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        blobs.forEach((blob) => {
+          const depth = blob.dataset.panel === "research" ? 18 : 12;
+          blob.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+        });
+      };
+
+      const resetTilt = () => {
+        blobs.forEach((blob) => {
+          blob.style.transform = "";
+        });
+      };
+
+      orbital.addEventListener("mousemove", tilt, { passive: true });
+      orbital.addEventListener("mouseleave", resetTilt);
+    })();
+  </script>
+</body>
+</html>
